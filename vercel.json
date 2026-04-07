@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "app.py",
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "50mb" }
+    }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "app.py" }
+  ],
+  "env": {
+    "OLLAMA_BASE_URL": "@ollama_base_url",
+    "OPENROUTER_API_KEY": "@openrouter_api_key",
+    "OLLAMA_MODEL": "@ollama_model"
+  }
+}

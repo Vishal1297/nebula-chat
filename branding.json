@@ -1,0 +1,11 @@
+{
+  "name": "NebulaChat",
+  "slug": "nebula-chat",
+  "colors": {
+    "primary": "#6b9cff",
+    "bg": "#f8fafc",
+    "text": "#111"
+  },
+  "logo_path": "assets/branding_logo.svg",
+  "tagline": "Conversations across the cloud of models."
+}
