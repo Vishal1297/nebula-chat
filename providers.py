@@ -1,7 +1,6 @@
-from typing import Dict, List, Generator
+from typing import Dict, Generator, List
 
 from openai import APIConnectionError, APIStatusError, APITimeoutError, OpenAI
-import os
 
 from config import Settings
 
@@ -55,14 +54,11 @@ def chat_with_ollama(
     content = ""
     try:
         if response and hasattr(response, "choices") and response.choices:
-            ch = response.choices[0]
-            delta = ch.get("message", {}) if isinstance(ch, dict) else None
-            if isinstance(delta, dict):
-                content = delta.get("content", "")
-            elif isinstance(ch.get("message"), dict):
-                content = ch["message"].get("content", "")
+            choice = response.choices[0]
+            if hasattr(choice, "message") and choice.message:
+                content = choice.message.content or ""
     except Exception:
-        content = ""
+        pass
 
     if not content:
         raise RuntimeError("Ollama returned an empty response.")
@@ -88,12 +84,15 @@ def chat_with_ollama_stream(
     history = base_history + [{"role": "assistant", "content": ""}]
 
     for chunk in response:
-        delta = None
+        token = ""
         try:
-            delta = chunk.get("choices", [{}])[0].get("delta", {})
+            if hasattr(chunk, "choices") and chunk.choices:
+                choice = chunk.choices[0]
+                if hasattr(choice, "delta") and choice.delta and hasattr(choice.delta, "content"):
+                    token = choice.delta.content or ""
         except Exception:
-            delta = None
-        token = delta.get("content", "") if isinstance(delta, dict) else ""
+            pass
+
         if not token:
             continue
         acc += token
