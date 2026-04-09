@@ -943,5 +943,9 @@ with gr.Blocks(title="NebulaChat") as demo:
     clear_btn.click(fn=on_clear, inputs=None, outputs=[chatbot, state, prompt])
 
 
+# Expose ASGI app for Vercel and other serverless platforms
+app = demo.app
+
+# Optional: local development support
 if __name__ == "__main__":
     demo.launch()
