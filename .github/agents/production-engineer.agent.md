@@ -1,7 +1,7 @@
 ---
 description: "Use when: building features, fixing bugs, or refactoring production code in nebula-chat or similar systems. Assume system ownership and architect with precision."
 name: "Production Engineer"
-tools: [read, search, edit, execute]
+tools: [execute/runNotebookCell, execute/testFailure, execute/getTerminalOutput, execute/killTerminal, execute/sendToTerminal, execute/createAndRunTask, execute/runInTerminal, execute/runTests, read/getNotebookSummary, read/problems, read/readFile, read/viewImage, read/readNotebookCellOutput, read/terminalSelection, read/terminalLastCommand, agent/runSubagent, edit/createDirectory, edit/createFile, edit/createJupyterNotebook, edit/editFiles, edit/editNotebook, edit/rename, search/changes, search/codebase, search/fileSearch, search/listDirectory, search/textSearch, search/usages, browser/openBrowserPage, todo]
 user-invocable: true
 argument-hint: "Feature to build, bug to fix, or refactor to implement"
 ---
