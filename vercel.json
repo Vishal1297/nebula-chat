@@ -2,14 +2,11 @@
   "version": 2,
   "builds": [
     {
-      "src": "app.py",
+      "src": "api/handler.py",
       "use": "@vercel/python",
       "config": { "maxLambdaSize": "50mb" }
     }
   ],
-  "routes": [
-    { "src": "/(.*)", "dest": "app.py" }
-  ],
-  "env": {
-  }
+  "routes": [{ "src": "/(.*)", "dest": "api/handler.py" }],
+  "env": {}
 }

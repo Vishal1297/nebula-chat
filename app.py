@@ -20,6 +20,7 @@ def default_model(provider: str) -> str:
         return settings.openrouter_model
     return settings.ollama_model
 
+
 initial_value = default_model(DEFAULT_PROVIDER)
 
 
@@ -535,7 +536,7 @@ body {
 #chatbot_container {
     background: var(--surface);
     flex: 1;
-    min-height: 400px;
+    min-height: 500px;
     padding: 0;
     position: relative;
     overflow-y: auto;
@@ -654,7 +655,7 @@ body {
 }
 
 #input_section {
-    padding: 12px 20px 14px;
+    padding: 16px 20px;
     background: var(--surface);
     border-top: 1px solid var(--border);
     display: flex;
@@ -666,16 +667,17 @@ body {
     background: var(--bg);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
-    padding: 12px 14px;
+    padding: 14px 16px;
     font-size: 15px;
     transition: all 0.2s ease;
     resize: none;
-    line-height: 1.4;
+    line-height: 1.5;
+    min-height: 110px;
 }
 
 #prompt:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15), inset 0 0 0 1px rgba(79, 70, 229, 0.1);
     background: var(--surface);
     outline: none;
 }
@@ -692,7 +694,7 @@ body {
     padding: 12px 18px;
     font-weight: 600;
     font-size: 14px;
-    transition: all 0.2s ease;
+    transition: all 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -709,12 +711,18 @@ body {
 
 #send_btn:hover {
     background-color: var(--accent-hover);
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
+    box-shadow: 0 8px 12px rgba(79, 70, 229, 0.3);
+    transform: translateY(-3px);
 }
 
 #send_btn:active {
-    transform: scale(0.98);
+    transform: scale(0.96);
+    box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2);
+}
+
+#send_btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
 }
 
 #send_btn:disabled {
@@ -829,8 +837,7 @@ SEND_ICON = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZ
 CLEAR_ICON = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cG9seWxpbmUgcG9pbnRzPSIzIDYgNSA2IDIxIDYiPjwvcG9seWxpbmU+PHBhdGggZD0iTTE5IDZ2MTRhMiAyIDAgMCAxLTIgMkg3YTIgMiAwIDAgMS0yLTJWNm0zIDBWNGEyIDIgMCAwIDEgMi0yaDRhMiAyIDAgMCAxIDIgMnYyIj48L3BhdGg+PC9zdmc+"  # noqa: E501
 CHAT_ICON = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgiIGhlaWdodD0iMjgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTIxIDE1YTIgMiAwIDEgMS0yIDJIN2wtNCA0VjVhMiAyIDAgMSAyLTIgMmgxNGEyIDIgMCAwIDEgMiAyeiI+PC9wYXRoPjwvc3ZnPg=="  # noqa: E501
 
-with gr.Blocks(title="NebulaChat") as demo:
-    demo.css = css
+with gr.Blocks(title="NebulaChat", css=css) as demo:
     with gr.Column(elem_id="main_container"):
         # Header
         with gr.Row(elem_id="header"):
@@ -904,7 +911,7 @@ with gr.Blocks(title="NebulaChat") as demo:
         state = gr.State([])
         chatbot = gr.Chatbot(
             label=None,
-            height=550,
+            height=700,
             elem_id="chatbot_container",
             show_label=False,
             avatar_images=(None, None),
@@ -918,8 +925,8 @@ with gr.Blocks(title="NebulaChat") as demo:
                 elem_id="prompt",
                 scale=9,
                 show_label=False,
-                lines=1,
-                max_lines=5,
+                lines=4,
+                max_lines=10,
                 container=False,
             )
             send_btn = gr.Button(
@@ -942,10 +949,6 @@ with gr.Blocks(title="NebulaChat") as demo:
     )
     clear_btn.click(fn=on_clear, inputs=None, outputs=[chatbot, state, prompt])
 
-
-# Expose ASGI app for Vercel and other serverless platforms
-app = demo.app
-
-# Optional: local development support
 if __name__ == "__main__":
+    demo.queue()
     demo.launch()
