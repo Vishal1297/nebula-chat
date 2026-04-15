@@ -10,13 +10,13 @@ handles communication with an Ollama server. It focuses on:
 5. Type safety throughout the provider interface
 """
 
-from typing import Dict, Generator, List
+from typing import Generator, List
 
 from openai import OpenAI
 
 from .base import BaseProvider, ProviderError
 
-Message = Dict[str, str]
+Message = dict[str, str]
 
 
 class OllamaProvider(BaseProvider):
@@ -108,7 +108,12 @@ class OllamaProvider(BaseProvider):
                     continue
                 acc += token
                 history[-1]["content"] = acc
-                progress = min(1.0, len(acc) / 20.0)
+                
+                # More realistic progress estimation
+                # Assume average response length of 100 tokens for a typical response
+                estimated_length = 100
+                progress = min(1.0, len(acc) / estimated_length)
+                
                 yield acc, history, history, progress
         finally:
             # Ensure the generator always terminates

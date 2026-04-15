@@ -4,14 +4,14 @@ This module provides a concrete implementation of ``BaseProvider`` that
 handles communication with OpenRouter's API for accessing multiple LLM providers.
 """
 
-from typing import Dict, Generator, List
+from typing import Generator, List
 
 from openai import APIConnectionError, APIStatusError, APITimeoutError, OpenAI
 
 from .base import BaseProvider, ProviderError
 from .utils import build_status_error_message
 
-Message = Dict[str, str]
+Message = dict[str, str]
 
 
 class OpenRouterProvider(BaseProvider):
@@ -129,7 +129,12 @@ class OpenRouterProvider(BaseProvider):
                 acc += token
                 history[-1]["content"] = acc
                 chunks += 1
-                progress = min(1.0, chunks / 20.0)
+                
+                # More realistic progress estimation
+                # Assume average response length of 100 tokens for a typical response
+                estimated_length = 100
+                progress = min(1.0, chunks / estimated_length)
+                
                 yield acc, history, history, progress
         finally:
             # Ensure final yield with complete content

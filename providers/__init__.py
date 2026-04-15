@@ -15,7 +15,7 @@ Main exports:
 - ProviderError: Exception for provider-specific errors
 """
 
-from typing import Dict, Generator, List, Tuple
+from typing import Generator, List, Tuple
 
 from config import Settings
 
@@ -23,7 +23,7 @@ from .base import BaseProvider, ProviderEnum, ProviderError
 from .ollama import OllamaProvider
 from .openrouter import OpenRouterProvider
 
-Message = Dict[str, str]
+Message = dict[str, str]
 
 
 def _get_provider(provider_name: str, settings: Settings) -> BaseProvider:

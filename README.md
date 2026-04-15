@@ -8,43 +8,65 @@ A NebulaChat UI for multi-provider chat (Ollama and OpenRouter) built with Gradi
 - Unified internal message format (`[{role, content}]`)
 - Configurable model via UI and env vars
 - Friendly error messages for missing cloud config or auth issues
+- Streaming responses for faster interaction
+- Responsive web interface with dark/light themes
 
 ## Requirements
 
 - Python 3.10+
-- Ollama Cloud endpoint URL and model access
+- Either:
+  - Ollama instance (local or remote)
+  - OpenRouter API key (for cloud-based models)
 
 ## Setup
 
 1. Install `uv` (if not already installed):
+
    ```bash
    curl -LsSf https://astral.sh/uv/install.sh | sh
    ```
 
 2. Clone/navigate to the project and install dependencies:
+
    ```bash
    uv sync
    ```
 
 3. Configure environment variables:
+
    ```bash
    cp .env.example .env
    ```
 
-   Edit `.env` and set:
-   - `OLLAMA_BASE_URL` (your Ollama Cloud host)
-   - `OLLAMA_API_KEY` (Bearer token, or `OLLAMA_TOKEN`)
-   - `OLLAMA_MODEL` (optional, defaults to `llama3.1:8b`)
+   Edit `.env` and set (at least one provider must be configured):
 
-## Ollama Cloud Configuration
+   **For Ollama:**
+   - `OLLAMA_BASE_URL` (your Ollama endpoint, default: http://localhost:11434/v1)
+   - `OLLAMA_API_KEY` (optional Bearer token for remote instances)
+   - `OLLAMA_MODEL` (optional, model to use)
+
+   **For OpenRouter:**
+   - `OPENROUTER_API_KEY` (required for OpenRouter provider)
+   - `OPENROUTER_MODEL` (optional, model to use)
+
+## Provider Configuration
+
+### Ollama
 
 ```bash
-OLLAMA_BASE_URL=https://your-ollama-cloud-host
-OLLAMA_API_KEY=your_ollama_bearer_token_here
-OLLAMA_MODEL=llama3.1:8b
+OLLAMA_BASE_URL=http://localhost:11434/v1
+OLLAMA_API_KEY=  # Optional for local instances
+OLLAMA_MODEL=llama3.1:8b  # Optional
 ```
 
-Requests are sent to `POST {OLLAMA_BASE_URL}/api/chat` with `Authorization: Bearer <token>` when a token is provided.
+### OpenRouter
+
+```bash
+OPENROUTER_API_KEY=your_openrouter_api_key_here
+OPENROUTER_MODEL=openrouter/free  # Optional
+```
+
+You can also configure providers at runtime via the UI settings panel.
 
 ## Run
 
@@ -60,4 +82,3 @@ Open the local Gradio URL in your browser.
 - Set/adjust model in the model field.
 - Enter a message and press Enter or click Send.
 - Use Clear to reset conversation history.
- 

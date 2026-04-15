@@ -6,11 +6,11 @@ maintaining a clean separation of concerns.
 """
 
 from abc import ABC, abstractmethod
-from typing import Dict, Generator, List, Tuple
+from typing import Generator, List, Tuple
 
 from config import Settings
 
-Message = Dict[str, str]
+Message = dict[str, str]
 
 
 class ProviderError(RuntimeError):

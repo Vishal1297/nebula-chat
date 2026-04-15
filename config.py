@@ -25,9 +25,8 @@ class Settings:
         # Basic validation – ensure provider is known
         if self.provider not in PROVIDERS.values():
             raise ValueError(f"Unsupported provider '{self.provider}'. Expected one of {list(PROVIDERS.values())}.")
-        # If a provider requires an API key, ensure it is present
-        if self.provider == PROVIDERS["OPENROUTER"] and not self.openrouter_api_key:
-            raise ValueError("OPENROUTER_API_KEY is required for the OpenRouter provider.")
+        # Note: We don't validate API keys here as they can be provided at runtime via UI
+        # Each provider will validate its own requirements when used
 
 
 def load_settings() -> Settings:
