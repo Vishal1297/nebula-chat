@@ -1,12 +1,11 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/handler.py",
-      "use": "@vercel/python",
-      "config": { "maxLambdaSize": "50mb" }
+  "functions": {
+    "api/handler.py": {
+      "maxDuration": 60
     }
-  ],
-  "routes": [{ "src": "/(.*)", "dest": "api/handler.py" }],
-  "env": {}
+  },
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/api/handler.py" }
+  ]
 }

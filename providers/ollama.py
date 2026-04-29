@@ -98,22 +98,25 @@ class OllamaProvider(BaseProvider):
 
         try:
             for chunk in stream:
-                delta = None
+                token = None
                 try:
-                    delta = getattr(chunk.choices[0], "delta", None)
+                    if chunk.choices:
+                        delta = getattr(chunk.choices[0], "delta", None)
+                        if delta:
+                            token = getattr(delta, "content", None)
                 except Exception:
                     pass
-                token = delta.get("content") if delta else None
+
                 if not token:
                     continue
                 acc += token
                 history[-1]["content"] = acc
-                
+
                 # More realistic progress estimation
                 # Assume average response length of 100 tokens for a typical response
                 estimated_length = 100
                 progress = min(1.0, len(acc) / estimated_length)
-                
+
                 yield acc, history, history, progress
         finally:
             # Ensure the generator always terminates

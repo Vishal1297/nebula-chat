@@ -1,84 +1,58 @@
+/* Minimalist Centered Input Pill */
 #input_section {
-  padding: 16px 20px;
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  display: flex;
-  gap: 8px;
-  align-items: flex-end;
+    padding: 1rem 2rem 3rem !important;
+    background: linear-gradient(to top, var(--bg-primary) 60%, transparent) !important;
+    display: flex !important;
+    justify-content: center !important;
 }
 
 #prompt {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 14px 16px;
-  font-size: 15px;
-  transition: all 0.2s ease;
-  resize: none;
-  line-height: 1.5;
-  min-height: 110px;
+    max-width: 760px !important;
+    margin: 0 auto !important;
+    border: 1px solid var(--border-medium) !important;
+    border-radius: var(--radius-lg) !important;
+    background: var(--surface) !important;
+    box-shadow: var(--shadow-xl) !important;
+    padding: 0.5rem 1rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-#prompt:focus {
-  border-color: var(--accent);
-  box-shadow:
-    0 0 0 3px rgba(79, 70, 229, 0.15),
-    inset 0 0 0 1px rgba(79, 70, 229, 0.1);
-  background: var(--surface);
-  outline: none;
+#prompt:focus-within {
+    border-color: var(--text-muted) !important;
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1) !important;
+    transform: translateY(-1px) !important;
 }
 
-#prompt::placeholder {
-  color: var(--text-muted);
+#prompt textarea {
+    background: transparent !important;
+    border: none !important;
+    padding: 0.75rem 0.5rem !important;
+    font-size: 1.05rem !important;
+    line-height: 1.5 !important;
+    max-height: 200px !important;
 }
 
 #send_btn {
-  background: var(--accent);
-  color: var(--user-text);
-  border: none;
-  border-radius: var(--radius-md);
-  padding: 12px 18px;
-  font-weight: 600;
-  font-size: 14px;
-  transition:
-    all 0.2s ease,
-    box-shadow 0.2s ease;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 44px;
-  height: 44px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2720%27 height=%2720%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27white%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cline x1=%2722%27 y1=%272%27 x2=%2711%27 y2=%2713%27%3E%3C/line%3E%3Cpolygon points=%2722 2 15 22 11 13 2 9 22 2%27%3E%3C/polygon%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 20px 20px;
-  text-indent: -9999px;
-  overflow: hidden;
+    background-color: var(--text-main) !important;
+    color: var(--bg-primary) !important;
+    border-radius: 12px !important;
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: auto 0 !important;
+    transition: all 0.2s ease !important;
 }
 
 #send_btn:hover {
-  background-color: var(--accent-hover);
-  box-shadow: 0 8px 12px rgba(79, 70, 229, 0.3);
-  transform: translateY(-3px);
-}
-
-#send_btn:active {
-  transform: scale(0.96);
-  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2);
-}
-
-#send_btn:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+    opacity: 0.9 !important;
+    transform: scale(1.05) !important;
 }
 
 #send_btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* Loading spinner inside send btn */
-#send_btn.loading {
-  animation: pulse 1.5s ease-in-out infinite;
+    opacity: 0.3 !important;
+    background-color: var(--text-muted) !important;
 }

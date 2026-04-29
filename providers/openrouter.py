@@ -129,12 +129,12 @@ class OpenRouterProvider(BaseProvider):
                 acc += token
                 history[-1]["content"] = acc
                 chunks += 1
-                
+
                 # More realistic progress estimation
                 # Assume average response length of 100 tokens for a typical response
                 estimated_length = 100
                 progress = min(1.0, chunks / estimated_length)
-                
+
                 yield acc, history, history, progress
         finally:
             # Ensure final yield with complete content

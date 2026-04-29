@@ -15,6 +15,7 @@ Main exports:
 - ProviderError: Exception for provider-specific errors
 """
 
+from functools import lru_cache
 from typing import Generator, List, Tuple
 
 from config import Settings
@@ -127,25 +128,31 @@ def chat_stream(
         raise RuntimeError(f"Provider error: {e}") from e
 
 
+@lru_cache(maxsize=16)
+def _list_models_cached(provider_name: str) -> List[str]:
+    """Internal helper for cached model listing. Only caches successful results."""
+    from config import load_settings
+
+    settings = load_settings()
+    try:
+        provider = _get_provider(provider_name, settings)
+        result = provider.list_models()
+        if not result:
+            _list_models_cached.cache_clear()
+            return []
+        return result
+    except Exception:
+        _list_models_cached.cache_clear()
+        return []
+
+
 def list_models_for_provider(settings: Settings, provider_name: str) -> List[str]:
-    """Return available models for the given provider.
+    """Return available models for the given provider with caching.
 
     This is a lightweight, safe helper to populate UI dropdowns.
     Returns an empty list if listing is not supported or fails.
-
-    Args:
-        settings: Application settings
-        provider_name: Name of the provider (ollama, openrouter)
-
-    Returns:
-        List of model identifiers, or empty list on error
     """
-    try:
-        provider = _get_provider(provider_name, settings)
-        return provider.list_models()
-    except Exception:
-        # Silently return empty list if models can't be listed
-        return []
+    return _list_models_cached(provider_name)
 
 
 # Backward compatibility wrappers for app.py
