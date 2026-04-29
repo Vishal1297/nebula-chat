@@ -146,6 +146,11 @@ with gr.Blocks(title="NebulaChat", analytics_enabled=False) as demo:
                     elem_id="provider_dropdown",
                 )
                 model = _make_model_dropdown(initial_choices or [initial_value], initial_value)
+                model_error_msg = gr.HTML(
+                    visible=False,
+                    value='<div style="padding: 8px 12px; background: #fef3c7; border: 1px solid #fcd34d; border-radius: 6px; font-size: 12px; color: #92400e; margin-top: 4px; display: flex; align-items: center; gap: 6px;"><span>\u26a0\ufe0f</span><span>Configure provider in Settings to see available models</span></div>',
+                    elem_id="model_error_msg",
+                )
 
             with gr.Row():
                 openrouter_key = gr.Textbox(
@@ -188,7 +193,7 @@ with gr.Blocks(title="NebulaChat", analytics_enabled=False) as demo:
             )
 
     # Event Handlers
-    provider.change(fn=on_provider_change, inputs=[provider], outputs=[model, gr.HTML(visible=False)])
+    provider.change(fn=on_provider_change, inputs=[provider], outputs=[model, model_error_msg])
 
     submit_event = send_btn.click(
         fn=on_submit,

@@ -22,7 +22,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 # Attempt to import the Gradio app
 try:
-    from app import demo
+    from app import demo, css
 
     logger.info("Successfully loaded Gradio app")
 except Exception as e:
@@ -63,7 +63,7 @@ async def generic_exception_handler(request: Request, exc: Exception):
 
 
 # Mount Gradio app
-app = gr.mount_gradio_app(fastapi_app, demo, path="/")
+app = gr.mount_gradio_app(fastapi_app, demo, path="/", css=css)
 
 
 # Log startup
