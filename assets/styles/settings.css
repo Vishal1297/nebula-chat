@@ -1,163 +1,33 @@
+/* Settings Bar Styling */
 #settings_bar {
-  display: flex;
-  gap: 8px;
-  padding: 10px 20px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  align-items: center;
-  flex-wrap: wrap;
+    background-color: var(--bg-secondary);
+    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid var(--border-light);
+    gap: 1rem;
 }
 
-#settings_bar .gradio-dropdown,
-#settings_bar .gradio-textbox {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  transition: all 0.15s ease;
-}
-
-#settings_bar .gradio-dropdown:hover,
-#settings_bar .gradio-textbox:hover {
-  border-color: var(--border-hover);
-}
-
-#settings_bar .gradio-dropdown:focus-within,
-#settings_bar .gradio-textbox:focus-within {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-}
-
-/* Card Base Styles */
-.card {
-  padding: 10px 12px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  animation: scaleIn 0.3s ease-out;
-}
-
-.card:hover {
-  border-color: var(--accent);
-  background: white;
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
-
-.card.active {
-  background: var(--accent);
-  color: var(--user-text);
-  border-color: var(--accent);
-  box-shadow: var(--shadow-md);
-}
-
-/* Provider Card */
-.provider-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  padding: 12px 8px;
-  text-align: center;
-}
-
-.provider-card-icon {
-  font-size: 32px;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.provider-card-name {
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.provider-card-status {
-  font-size: 10px;
-  opacity: 0.7;
-}
-
-.provider-card.active .provider-card-status {
-  opacity: 1;
+#provider_dropdown, #model_dropdown {
+    border: 1px solid var(--border-light) !important;
+    border-radius: var(--radius-md) !important;
+    background: var(--surface) !important;
 }
 
 #clear_btn {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-  color: var(--user-text);
-  border: none;
-  border-radius: 12px;
-  padding: 10px 16px;
-  font-weight: 600;
-  font-size: 13px;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-  cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2716%27 height=%2716%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27currentColor%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpolyline points=%273 6 5 6 21 6%27%3E%3C/polyline%3E%3Cpath d=%27M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2%27%3E%3C/path%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: 10px center;
-  background-size: 16px 16px;
-  padding-left: 32px;
+    background-color: transparent !important;
+    color: var(--text-muted) !important;
+    border: 1px solid var(--border-light) !important;
+    border-radius: var(--radius-md) !important;
+    font-size: 0.875rem !important;
 }
 
 #clear_btn:hover {
-  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
-  box-shadow: var(--shadow-md);
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-main) !important;
 }
 
-#clear_btn:active {
-  transform: scale(0.98);
-}
-
-#clear_btn:focus-visible {
-  outline: 2px solid var(--border-hover);
-  outline-offset: 2px;
-}
-
-/* Accordion Styling (Settings Panel) */
-#settings_accordion label {
-  font-weight: 600 !important;
-  color: var(--text) !important;
-}
-
-#settings_accordion .gradio-accordion-item {
-  background: white !important;
-  border: 1px solid var(--border) !important;
-  border-radius: var(--radius-md) !important;
-  transition: all 0.2s ease !important;
-}
-
-#settings_accordion .gradio-accordion-item:hover {
-  border-color: var(--accent) !important;
-  box-shadow: var(--shadow-sm) !important;
-}
-
-#settings_accordion .gradio-accordion-item-header {
-  background: var(--bg) !important;
-  border-bottom: 1px solid var(--border) !important;
-}
-
-#settings_accordion .gradio-accordion-item.open .gradio-accordion-item-header {
-  background: var(--surface) !important;
-  border-bottom: 1px solid var(--accent) !important;
-}
-
-/* Settings Textbox Styling */
-#settings_accordion .gradio-textbox {
-  margin-bottom: 12px !important;
-}
-
-#settings_accordion .gradio-textbox input {
-  border-radius: var(--radius-sm) !important;
-  border: 1px solid var(--border) !important;
-  transition: all 0.2s ease !important;
-}
-
-#settings_accordion .gradio-textbox input:focus {
-  border-color: var(--accent) !important;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1) !important;
+#settings_accordion {
+    border: 1px solid var(--border-light) !important;
+    border-radius: var(--radius-md) !important;
+    background: var(--surface) !important;
+    margin-top: 0.5rem;
 }

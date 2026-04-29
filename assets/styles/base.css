@@ -1,58 +1,58 @@
+/* Ultra-Clean Layout */
 * {
-  font-family:
-    "Inter",
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    system-ui,
-    sans-serif !important;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
 }
 
 body {
-  background: var(--bg);
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    overflow-x: hidden;
 }
 
 #main_container {
-  max-width: 860px;
-  margin: 0 auto;
-  background: var(--surface);
-  min-height: 100vh;
-  box-shadow: var(--shadow-lg);
-  display: flex;
-  flex-direction: column;
+    max-width: 100% !important; /* Full width canvas, centered content */
+    width: 100% !important;
+    margin: 0 !important;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-primary);
+    border: none !important;
 }
 
 #header {
-  padding: 14px 20px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  animation: slideIn 0.5s ease-out;
+    padding: 1.25rem 2rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-light);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-#header h1 {
-  color: var(--text);
-  font-size: 20px;
-  font-weight: 700;
-  margin: 0;
-  letter-spacing: -0.025em;
+/* Settings Bar Polish */
+#settings_bar {
+    background-color: var(--bg-primary);
+    padding: 0.5rem 2rem;
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
 }
 
-#header p {
-  color: var(--text-muted);
-  font-size: 13px;
-  margin: 0;
-  font-weight: 400;
+#settings_bar .form {
+    max-width: 760px !important;
+    width: 100% !important;
 }
 
-/* Hide Gradio footer */
-footer {
-  display: none;
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#chatbot_container .message {
+    animation: fadeIn 0.4s ease-out forwards;
 }
